@@ -46,6 +46,7 @@
                     android:layout_height="40dp"
                     android:layout_margin="15dp"
                     android:background="@drawable/forma_boton_redondo"
+                    app:backgroundTint="?attr/colorSurface"
                     android:src="@drawable/ic_regresar"
                     app:tint="?attr/colorOnSurface" />
 
@@ -58,14 +59,74 @@
                 android:orientation="vertical"
                 android:padding="15dp">
 
-                <TextView
-                    android:id="@+id/Tv_titulo"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Título del anuncio"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/Tv_titulo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Título del anuncio"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center">
+                            <ImageButton
+                                android:id="@+id/Btn_like"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:src="@drawable/ic_like"
+                                app:tint="?attr/colorOnSurface" />
+                            <TextView
+                                android:id="@+id/Tv_likes_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="12sp"
+                                android:textColor="?attr/colorOnSurfaceVariant"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_marginStart="10dp">
+                            <ImageButton
+                                android:id="@+id/Btn_dislike"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:src="@drawable/ic_dislike"
+                                app:tint="?attr/colorOnSurface" />
+                            <TextView
+                                android:id="@+id/Tv_dislikes_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="12sp"
+                                android:textColor="?attr/colorOnSurfaceVariant"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/Tv_precio"
@@ -93,7 +154,7 @@
                 android:layout_marginHorizontal="15dp"
                 android:background="?attr/colorOutlineVariant" />
 
-            <!--Detalles del anuncio (Marca, Categoría, Condición)-->
+            <!--Detalles del anuncio-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -261,6 +322,17 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/FAB_Comentarios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/toolbar_inferior"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_mensaje"
+        app:tint="@color/white"
+        app:backgroundTint="?attr/colorPrimary" />
 
     <LinearLayout
         android:id="@+id/toolbar_inferior"

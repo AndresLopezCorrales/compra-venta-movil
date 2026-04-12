@@ -43,6 +43,8 @@ class FragmentMisAnuncios : Fragment() {
         ref.orderByChild("uid").equalTo(firebaseAuth.uid)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    if (!isAdded) return // Verificamos que el fragmento siga activo
+
                     anuncioArrayList.clear()
                     for (ds in snapshot.children) {
                         try {
@@ -53,8 +55,11 @@ class FragmentMisAnuncios : Fragment() {
                         } catch (e: Exception) {
                         }
                     }
-                    adaptadorAnuncio = AdaptadorAnuncio(requireContext(), anuncioArrayList)
-                    binding.RVMisAnuncios.adapter = adaptadorAnuncio
+                    
+                    context?.let {
+                        adaptadorAnuncio = AdaptadorAnuncio(it, anuncioArrayList)
+                        binding.RVMisAnuncios.adapter = adaptadorAnuncio
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
