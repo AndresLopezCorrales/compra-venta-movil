@@ -64,7 +64,12 @@ class ComentariosActivity : AppCompatActivity() {
         if (comentario.isEmpty()) {
             Toast.makeText(this, "Escribe un comentario", Toast.LENGTH_SHORT).show()
         } else {
-            agregarComentario(comentario)
+            val palabras = comentario.split("\\s+".toRegex()).filter { it.isNotEmpty() }
+            if (palabras.size > 500) {
+                Toast.makeText(this, "El comentario no puede exceder las 500 palabras", Toast.LENGTH_SHORT).show()
+            } else {
+                agregarComentario(comentario)
+            }
         }
     }
 
@@ -77,7 +82,7 @@ class ComentariosActivity : AppCompatActivity() {
                 val urlImagenPerfil = "${snapshot.child("urlImagenPerfil").value}"
                 
                 val ref = FirebaseDatabase.getInstance().getReference("Anuncios")
-                val idComentario = "${ref.push().key}"
+                val idComentario = ref.push().key ?: ""
 
                 val modeloComentario = ModeloComentario(
                     idComentario,
@@ -116,7 +121,7 @@ class ComentariosActivity : AppCompatActivity() {
                             comentarioArrayList.add(modelo)
                         }
                     }
-                    adaptadorComentario = AdaptadorComentario(this@ComentariosActivity, comentarioArrayList)
+                    adaptadorComentario = AdaptadorComentario(this@ComentariosActivity, comentarioArrayList, idAnuncio)
                     binding.RVComentarios.adapter = adaptadorComentario
                 }
 
