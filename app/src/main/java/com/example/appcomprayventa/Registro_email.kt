@@ -33,16 +33,22 @@ class Registro_email : AppCompatActivity() {
         }
     }
 
+    private var nombres = ""
     private var email = ""
     private var password = ""
     private var r_password = ""
 
     private fun validarInfo() {
+        nombres = binding.EtNombres.text.toString().trim()
         email = binding.EtEmail.text.toString().trim()
         password = binding.EtPassword.text.toString().trim()
         r_password = binding.EtRPassword.text.toString().trim()
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (nombres.isEmpty()){
+            binding.EtNombres.error = "Ingrese su nombre"
+            binding.EtNombres.requestFocus()
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             binding.EtEmail.error = "Email inválido"
             binding.EtEmail.requestFocus()
         }
@@ -60,7 +66,7 @@ class Registro_email : AppCompatActivity() {
         }
         else if (password != r_password){
             binding.EtRPassword.error = "No coinciden"
-            binding.EtRPassword. requestFocus()
+            binding.EtRPassword.requestFocus()
         }
         else{
             registrarUsuario()
@@ -88,14 +94,14 @@ class Registro_email : AppCompatActivity() {
     }
 
     private fun llenarInfoBD() {
-        progressDialog.setMessage("Guardando infromación")
+        progressDialog.setMessage("Guardando información")
 
         val tiempo = Constantes.obtenerTiempoDis()
         val emailUsuario = firebaseAuth.currentUser!!.email
         val uidUsuario = firebaseAuth.uid
 
         val hashMap = HashMap<String, Any>()
-        hashMap["nombres"] = ""
+        hashMap["nombres"] = nombres
         hashMap["codigoTelefono"] = ""
         hashMap["telefono"] = ""
         hashMap["urlImagenPerfil"] = ""
